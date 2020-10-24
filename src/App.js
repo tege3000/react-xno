@@ -4,7 +4,7 @@ const Title = () => <h1 className="text-center mt-4 mb-4">X & O Game</h1>
 const BoardCell = () => { 
     return  (
         <div className="square">
-            <div className="cell">
+            <div className="cell">X
             </div>
         </div>
     )
