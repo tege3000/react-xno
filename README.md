@@ -1,6 +1,6 @@
 # Simple X & O React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), while learning about Components, Props, States and Lifecycles in React.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), while learning about Components, Props, States and Lifecycles, Handling Events and Lifting States in React.
 
 ## Quick Start
 
