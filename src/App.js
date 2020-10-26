@@ -1,38 +1,64 @@
 import React from 'react';
 
 const Title = ({title}) => <h1 className="text-center mt-4 mb-4">{title}</h1>
-const BoardCell = () => { 
-    return  (
-        <div className="square">
-            <div className="cell">X
+class BoardCell extends React.Component { 
+    constructor(props) {
+        super(props);
+        this.state =  {
+            sign: ""
+        }
+    }
+
+    setSign() {
+        this.setState({
+            sign: this.props.sign
+        })
+    }
+
+    render() {
+        return  (
+            <div className="square" onClick={this.setSign.bind(this)}>
+                <div className="cell">{this.state.sign}</div>
             </div>
-        </div>
-    );
+        );
+    } 
 }
-const BoardRow = () => {
+
+const BoardRow = (props) => {
     return (
         <div className="row m-0">
             <div className="col-4 m-0 p-0">
-              <BoardCell />
+              <BoardCell {...props}/>
             </div>
             <div className="col-4 m-0 p-0">
-              <BoardCell />
+              <BoardCell {...props}/>
             </div>
             <div className="col-4 m-0 p-0">
-              <BoardCell />
+              <BoardCell {...props}/>
             </div>
         </div>
     );
 }
 
-const Board = () => {
-    return (
-        <div className="board mx-auto">
-            <BoardRow />
-            <BoardRow />
-            <BoardRow />
-        </div>
-    );
+class Board extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            nextSign: "X",
+        };
+    }
+
+    render() {
+        const {nextSign} = this.state;
+        return (
+            <div className="board mx-auto">
+                <BoardRow sign={nextSign}/>
+                <BoardRow sign={nextSign}/>
+                <BoardRow sign={nextSign}/>
+            </div>
+        );
+    }
+    
 }
 
 const Button = ({text, className}) => {
