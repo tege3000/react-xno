@@ -13,6 +13,8 @@ class BoardCell extends React.Component {
         this.setState({
             sign: this.props.sign
         })
+
+        this.props.onSelect(this.props.sign)
     }
 
     render() {
@@ -48,13 +50,19 @@ class Board extends React.Component {
         };
     }
 
+    onSelect(sign) {
+        this.setState({
+            nextSign: sign === "X" ? "O" : "X"
+        })
+    }
+
     render() {
         const {nextSign} = this.state;
         return (
             <div className="board mx-auto">
-                <BoardRow sign={nextSign}/>
-                <BoardRow sign={nextSign}/>
-                <BoardRow sign={nextSign}/>
+                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
+                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
+                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
             </div>
         );
     }
