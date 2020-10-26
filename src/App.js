@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Title = () => <h1 className="text-center mt-4 mb-4">X & O Game</h1>
+const Title = ({title}) => <h1 className="text-center mt-4 mb-4">{title}</h1>
 const BoardCell = () => { 
     return  (
         <div className="square">
             <div className="cell">X
             </div>
         </div>
-    )
+    );
 }
 const BoardRow = () => {
     return (
@@ -22,7 +22,7 @@ const BoardRow = () => {
               <BoardCell />
             </div>
         </div>
-    )
+    );
 }
 
 const Board = () => {
@@ -32,23 +32,32 @@ const Board = () => {
             <BoardRow />
             <BoardRow />
         </div>
-    )
+    );
 }
 
-const Retry = () => {
+const Button = ({text, className}) => {
     return (
         <div className="text-center mt-3">
-            <button className="btn btn-primary">Play Again</button>
+            <button className= {className}>{text}</button>
         </div>
-    )
+    );
 }
 
-const App =  () => (
-    <div className="card container p-4">
-        <Title />
-        <Board />
-        <Retry />
-    </div>
-)
+const App =  () => {
+
+    const btn =  {
+        text: 'Play Again',
+        className: 'btn btn-primary'
+    }
+
+    return (
+        <div className="card container p-4">
+            <Title title="X & O Game"/>
+            <Board />
+            <Button {...btn} />
+            <Button text="End Game" className="btn btn-secondary"/>
+        </div>
+    );
+};
 
 export default App;
