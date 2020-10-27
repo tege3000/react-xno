@@ -1,29 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const Title = ({title}) => <h1 className="text-center mt-4 mb-4">{title}</h1>
-class BoardCell extends React.Component { 
-    constructor(props) {
-        super(props);
-        this.state =  {
-            sign: ""
-        }
+const BoardCell = (props) => { 
+
+    const [sign, setSign] = useState("");
+    
+    const select = () => {
+        setSign(props.sign);
+        props.onSelect(props.sign)
     }
 
-    setSign() {
-        this.setState({
-            sign: this.props.sign
-        })
-
-        this.props.onSelect(this.props.sign)
-    }
-
-    render() {
-        return  (
-            <div className="square" onClick={this.setSign.bind(this)}>
-                <div className="cell">{this.state.sign}</div>
-            </div>
-        );
-    } 
+    return  (
+        <div className="square" onClick={select}>
+            <div className="cell">{sign}</div>
+        </div>
+    );
 }
 
 const BoardRow = (props) => {
@@ -42,31 +33,21 @@ const BoardRow = (props) => {
     );
 }
 
-class Board extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            nextSign: "X",
-        };
+const Board = () => {
+    const [nextSign, setNextSign] = useState("X")
+
+    const onSelect = (sign) => {
+        setNextSign(sign === "X" ? "O" : "X");
     }
 
-    onSelect(sign) {
-        this.setState({
-            nextSign: sign === "X" ? "O" : "X"
-        })
-    }
-
-    render() {
-        const {nextSign} = this.state;
-        return (
-            <div className="board mx-auto">
-                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
-                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
-                <BoardRow sign={nextSign} onSelect= {this.onSelect.bind(this)}/>
-            </div>
-        );
-    }
-    
+    return (
+        <div className="board mx-auto">
+            <BoardRow sign={nextSign} onSelect= {onSelect}/>
+            <BoardRow sign={nextSign} onSelect= {onSelect}/>
+            <BoardRow sign={nextSign} onSelect= {onSelect}/>
+        </div>
+    );
+     
 }
 
 const Button = ({text, className}) => {
