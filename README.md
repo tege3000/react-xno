@@ -12,7 +12,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ```sh
 git clone https://github.com/tege3000/react-xno.git
-cd xno
+cd react-xno
 npm install
 npm start
 ```
