@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Quick Start
 
 ```sh
-git clone https://github.com/tege3000/xno.git
+git clone https://github.com/tege3000/react-xno.git
 cd xno
 npm install
 npm start
