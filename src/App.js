@@ -31,7 +31,31 @@ const BoardRow = ({row, ...others}) => {
 
 const Board = () => {
     const [nextSign, setNextSign] = useState("X");
-    const [grid, setGrid] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
+    const [grid,] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
+    const [win, setWin] = useState(false);
+
+    const checkWinner = cells  => {
+        // if you flatten the array (turn to a 1D array), the rows and cols
+        // can be indexed as follows
+        const winners = {
+            row1: [0, 1, 2],
+            row2: [3, 4, 5],
+            row3: [6, 7, 8],
+            col1: [0, 3, 6],
+            col2: [1, 4, 7],
+            col3: [2, 5, 8],
+            diag1: [0, 4, 8],
+            diag2: [2, 4, 6]
+        }
+
+        for(let key in winners) {
+            const [a, b, c] = winners[key];
+            if(cells[a] !== "" && cells[a] === cells[b] && cells[a] === cells[c]) {
+                return key;
+            }
+        }
+        return null;
+    }
 
     const onSelect = (row, col) => {
         if(grid[row][col] !== "") {
@@ -39,9 +63,8 @@ const Board = () => {
         }
 
         grid[row][col] = nextSign;
-        setGrid([...grid]);
-        console.log(grid);
         setNextSign(nextSign === "X" ? "O" : "X");
+        // const winner = checkWinner(grid.reduce)
     }
 
     return (
