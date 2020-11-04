@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 
 const Title = ({title}) => <h1 className="text-center mt-4 mb-4">{title}</h1>
-const BoardCell = (props) => { 
+const BoardCell = ({sign, rowIndex, colIndex, onSelect}) => { 
 
-    const [sign, setSign] = useState("");
+    // const [sign, setSign] = useState("");
     
     const onCellClick = () => {
-        setSign(props.sign);
-        props.onSelect()
+        // setSign(props.sign);
+        onSelect(rowIndex, colIndex);
     }
 
     return  (
@@ -17,35 +17,33 @@ const BoardCell = (props) => {
     );
 }
 
-const BoardRow = (props) => {
+const BoardRow = ({row, ...others}) => {
     return (
         <div className="row m-0">
-            <div className="col-4 m-0 p-0">
-              <BoardCell {...props}/>
-            </div>
-            <div className="col-4 m-0 p-0">
-              <BoardCell {...props}/>
-            </div>
-            <div className="col-4 m-0 p-0">
-              <BoardCell {...props}/>
-            </div>
+            {row.map((cell, index) => (
+                <div key={index} className="col-4 m-0 p-0">
+                    <BoardCell {...others} colIndex={index} sign={cell}/>
+                </div>
+            ))}
         </div>
     );
 }
 
 const Board = () => {
-    const [nextSign, setNextSign] = useState("X")
+    const [nextSign, setNextSign] = useState("X");
+    const [grid, setGrid] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
 
-    const onSelect = () => {
-        setNextSign(nextSign === "X" ? "O" : "X");
+    const onSelect = (row, col) => {
+        console.log(row, col);
+        // setNextSign(nextSign === "X" ? "O" : "X");
     }
 
     return (
         <>
             <div className="board mx-auto">
-                <BoardRow sign={nextSign} onSelect= {onSelect}/>
-                <BoardRow sign={nextSign} onSelect= {onSelect}/>
-                <BoardRow sign={nextSign} onSelect= {onSelect}/>
+                {grid.map((row, index) => (
+                    <BoardRow key={index} row={row} rowIndex={index} sign={nextSign} onSelect= {onSelect}/>
+                ))}
             </div>
             <div className="controls">
                 <Button text="Play Again" className="btn btn-primary"/>
