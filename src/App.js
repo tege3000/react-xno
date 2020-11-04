@@ -5,13 +5,13 @@ const BoardCell = (props) => {
 
     const [sign, setSign] = useState("");
     
-    const select = () => {
+    const onCellClick = () => {
         setSign(props.sign);
-        props.onSelect(props.sign)
+        props.onSelect()
     }
 
     return  (
-        <div className="square" onClick={select}>
+        <div className="square" onClick={onCellClick}>
             <div className="cell">{sign}</div>
         </div>
     );
@@ -36,41 +36,40 @@ const BoardRow = (props) => {
 const Board = () => {
     const [nextSign, setNextSign] = useState("X")
 
-    const onSelect = (sign) => {
-        setNextSign(sign === "X" ? "O" : "X");
+    const onSelect = () => {
+        setNextSign(nextSign === "X" ? "O" : "X");
     }
 
     return (
-        <div className="board mx-auto">
-            <BoardRow sign={nextSign} onSelect= {onSelect}/>
-            <BoardRow sign={nextSign} onSelect= {onSelect}/>
-            <BoardRow sign={nextSign} onSelect= {onSelect}/>
-        </div>
+        <>
+            <div className="board mx-auto">
+                <BoardRow sign={nextSign} onSelect= {onSelect}/>
+                <BoardRow sign={nextSign} onSelect= {onSelect}/>
+                <BoardRow sign={nextSign} onSelect= {onSelect}/>
+            </div>
+            <div className="controls">
+                <Button text="Play Again" className="btn btn-primary"/>
+                <Button text="End Game" className="btn btn-secondary"/>
+            </div>
+        </>
     );
      
 }
 
-const Button = ({text, className}) => {
+const Button = ({text, className, onClick}) => {
     return (
         <div className="text-center mt-3">
-            <button className= {className}>{text}</button>
+            <button onClick={onClick} className= {className}>{text}</button>
         </div>
     );
 }
 
 const App =  () => {
 
-    const btn =  {
-        text: 'Play Again',
-        className: 'btn btn-primary'
-    }
-
     return (
         <div className="card container p-4">
             <Title title="X & O Game"/>
-            <Board />
-            <Button {...btn} />
-            <Button text="End Game" className="btn btn-secondary"/>
+            <Board /> 
         </div>
     );
 };
