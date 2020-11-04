@@ -34,6 +34,10 @@ const Board = () => {
     const [grid, setGrid] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
 
     const onSelect = (row, col) => {
+        if(grid[row][col] !== "") {
+            return;
+        }
+
         grid[row][col] = nextSign;
         setGrid([...grid]);
         console.log(grid);
