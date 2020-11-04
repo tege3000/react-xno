@@ -34,8 +34,10 @@ const Board = () => {
     const [grid, setGrid] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
 
     const onSelect = (row, col) => {
-        console.log(row, col);
-        // setNextSign(nextSign === "X" ? "O" : "X");
+        grid[row][col] = nextSign;
+        setGrid([...grid]);
+        console.log(grid);
+        setNextSign(nextSign === "X" ? "O" : "X");
     }
 
     return (
