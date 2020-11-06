@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {canvas} from './index';
 
 const Title = ({title}) => <h1 className="text-center mt-4 mb-4">{title}</h1>
 const BoardCell = ({sign, rowIndex, colIndex, onSelect}) => { 
@@ -64,7 +65,9 @@ const Board = () => {
             new Array(3).fill(""),
             new Array(3).fill(""),
         ]);
+
         setNextSign("X");
+        canvas.reset();
     }
 
     const onSelect = (row, col) => {
@@ -79,11 +82,19 @@ const Board = () => {
 
         if(winner !== null) {
             setWin(true);
+            canvas.draw(winner);
         }
     }
 
     return (
         <>
+            <canvas 
+                id= "myCanvas" 
+                width= "155" 
+                height= "150" 
+                style= {{visibility: win ? "visible" : "hidden"}} 
+            />
+            
             <div className="board mx-auto">
                 {grid.map((row, index) => (
                     <BoardRow key={index} row={row} rowIndex={index} sign={nextSign} onSelect= {onSelect}/>
@@ -91,7 +102,7 @@ const Board = () => {
             </div>
             <div className="controls">
                 {win ? <Button text="Play Again" className="btn btn-primary"/> : null}
-                <Button text="End Game" className="btn btn-secondary" onClick={reset}/>
+                <Button text="Reset" className="btn btn-secondary" onClick={reset}/>
             </div>
         </>
     );
