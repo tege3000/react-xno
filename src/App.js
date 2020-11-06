@@ -31,7 +31,7 @@ const BoardRow = ({row, ...others}) => {
 
 const Board = () => {
     const [nextSign, setNextSign] = useState("X");
-    const [grid,] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
+    const [grid, setGrid] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [win, setWin] = useState(false);
 
     const checkWinner = cells  => {
@@ -57,14 +57,29 @@ const Board = () => {
         return null;
     }
 
+    const reset = () => {
+        setWin(false);
+        setGrid([
+            new Array(3).fill(""),
+            new Array(3).fill(""),
+            new Array(3).fill(""),
+        ]);
+        setNextSign("X");
+    }
+
     const onSelect = (row, col) => {
-        if(grid[row][col] !== "") {
+        if(win || grid[row][col] !== "") {
             return;
         }
 
         grid[row][col] = nextSign;
         setNextSign(nextSign === "X" ? "O" : "X");
-        // const winner = checkWinner(grid.reduce)
+        const flattenedArray = grid.reduce((rows, row) => [...rows, ...row]);
+        const winner = checkWinner(flattenedArray);
+
+        if(winner !== null) {
+            setWin(true);
+        }
     }
 
     return (
@@ -75,8 +90,8 @@ const Board = () => {
                 ))}
             </div>
             <div className="controls">
-                <Button text="Play Again" className="btn btn-primary"/>
-                <Button text="End Game" className="btn btn-secondary"/>
+                {win ? <Button text="Play Again" className="btn btn-primary"/> : null}
+                <Button text="End Game" className="btn btn-secondary" onClick={reset}/>
             </div>
         </>
     );
