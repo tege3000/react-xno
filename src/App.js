@@ -77,6 +77,8 @@ const Board = () => {
 
         grid[row][col] = nextSign;
         setNextSign(nextSign === "X" ? "O" : "X");
+
+        // using reduce function to flatten out the 3D array into a 1D array
         const flattenedArray = grid.reduce((rows, row) => [...rows, ...row]);
         const winner = checkWinner(flattenedArray);
 
